@@ -64,7 +64,7 @@ def kanji_output():
     #Kun
     try:
         Kun = shirabe_soup.find(class_='dictionary_entry kun_yomi').find_all('a')
-        txt_Kun = [i.text for i in Kun]
+        txt_Kun = [i.text.replace(".","") for i in Kun]
         if txt_Kun != []:
             outp_telegram.append('<u>Kun:</u> '+', '.join(txt_Kun))
     except:
@@ -72,7 +72,7 @@ def kanji_output():
     #On
     try:
         On = shirabe_soup.find_all(class_='dictionary_entry on_yomi')[-1].find_all('a')
-        txt_On = [i.text for i in On]
+        txt_On = [i.text.replace(".","") for i in On]
         if txt_On != []:
             outp_telegram.append('<u>On:</u> '+', '.join(txt_On))
     except:
