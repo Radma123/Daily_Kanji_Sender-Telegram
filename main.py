@@ -28,6 +28,7 @@ header = {
     'Referer': 'https://www.google.com/'
 }
 
+to_er = ''
 def kanji_output():
     response = requests.get('https://en.wikipedia.org/wiki/List_of_j%C5%8Dy%C5%8D_kanji',headers=header).text
     soup = BeautifulSoup(response,'lxml')
@@ -51,6 +52,7 @@ def kanji_output():
     #------------------------------------------------------
 
     shirabe_req = requests.get(f'https://jisho.org/search/{kanji}%20%23kanji').text
+    to_er = kanji
     shirabe_soup = BeautifulSoup(shirabe_req,'lxml')
     outp_telegram = []
 
@@ -100,6 +102,6 @@ if __name__ == '__main__':
     try:
         kanji_output()
     except Exception as err:
-        logging.exception(err)
+        logging.exception(err+'\n'+'kanji: '+str(to_er))
         print('??????????????????___Fatal error has occured!___?????????????????',end='\n')
         print(err)
