@@ -32,3 +32,22 @@ telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsucc
 00:56:13 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
 01:07:15 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
 01:05:00 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
+01:11:54 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
+01:11:56 - main - ERROR - <module>: 105 - A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message caption is too long
+kanji: 
+Traceback (most recent call last):
+  File "/home/runner/work/Daily_Kanji_Sender-Telegram/Daily_Kanji_Sender-Telegram/main.py", line 103, in <module>
+    kanji_output()
+  File "/home/runner/work/Daily_Kanji_Sender-Telegram/Daily_Kanji_Sender-Telegram/main.py", line 97, in kanji_output
+    bot.send_photo(chat_id=channel_id, photo=image, caption=text, disable_notification=False)
+  File "/opt/hostedtoolcache/Python/3.11.8/x64/lib/python3.11/site-packages/telebot/__init__.py", line 1825, in send_photo
+    apihelper.send_photo(
+  File "/opt/hostedtoolcache/Python/3.11.8/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 494, in send_photo
+    return _make_request(token, method_url, params=payload, files=files, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.8/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.8/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message caption is too long
