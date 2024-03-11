@@ -51,3 +51,4 @@ Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.11.8/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
     raise ApiTelegramException(method_name, result, result_json)
 telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message caption is too long
+01:08:40 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
