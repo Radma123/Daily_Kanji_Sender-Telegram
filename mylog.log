@@ -168,3 +168,13 @@ Traceback (most recent call last):
     bullets = row_comp.find_all(class_ = 'small-12 large-6 columns')
               ^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'find_all'
+01:08:43 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
+01:08:44 - main - ERROR - <module>: 105 - 'NoneType' object has no attribute 'find_all'
+kanji: 
+Traceback (most recent call last):
+  File "/home/runner/work/Daily_Kanji_Sender-Telegram/Daily_Kanji_Sender-Telegram/main.py", line 103, in <module>
+    kanji_output()
+  File "/home/runner/work/Daily_Kanji_Sender-Telegram/Daily_Kanji_Sender-Telegram/main.py", line 83, in kanji_output
+    bullets = row_comp.find_all(class_ = 'small-12 large-6 columns')
+              ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'find_all'
