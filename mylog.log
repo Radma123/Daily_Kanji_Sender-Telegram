@@ -208,3 +208,4 @@ Traceback (most recent call last):
     bullets = row_comp.find_all(class_ = 'small-12 large-6 columns')
               ^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'find_all'
+01:12:31 - main - WARNING - <module>: 16 - ________________________________HELLO__________________________________
