@@ -28,14 +28,15 @@ header = {
     'Referer': 'https://www.google.com/'
 }
 
-to_er = ''
+
 def kanji_output():
-    response = requests.get('https://en.wikipedia.org/wiki/List_of_j%C5%8Dy%C5%8D_kanji',headers=header).text
+    response = requests.get('https://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%B4%D0%B7%D1%91%D1%91-%D0%BA%D0%B0%D0%BD%D0%B4%D0%B7%D0%B8',headers=header).text
     soup = BeautifulSoup(response,'lxml')
-    blocks = soup.find('table', {'lang': 'ja', 'class': 'sortable wikitable'})
+    blocks = soup.find('table', {'class': 'sortable wikitable'})
 
 
     tds = random.choice(blocks.find_all('tr')[1:]).find_all('td')
+    ru_translate = tds[-2].text
     kanji = tds[1].text
 
 
@@ -52,6 +53,7 @@ def kanji_output():
     #------------------------------------------------------
 
     shirabe_req = requests.get(f'https://jisho.org/search/{kanji}%20%23kanji').text
+    global to_er
     to_er = kanji
     shirabe_soup = BeautifulSoup(shirabe_req,'lxml')
     outp_telegram = []
@@ -61,6 +63,8 @@ def kanji_output():
         meaning = shirabe_soup.find('div',class_='kanji-details__main-meanings').text
         if meaning != []:
             outp_telegram.append(f'<b>{meaning.strip()}</b>')
+        if ru_translate != None:
+            outp_telegram.append(f'<b>{ru_translate.strip()}</b>\n')
     except:
         pass
     #Kun
@@ -79,10 +83,11 @@ def kanji_output():
             outp_telegram.append('<u>On:</u> '+', '.join(txt_On))
     except:
         pass
-    row_comp = shirabe_soup.find('div',class_='row compounds')
-    bullets = row_comp.find_all(class_ = 'small-12 large-6 columns')
+
     #compounds
     try:
+        row_comp = shirabe_soup.find('div',class_='row compounds')
+        bullets = row_comp.find_all(class_ = 'small-12 large-6 columns')
         for bullet in bullets:
             pref = bullet.find('h2').text
             comps = bullet.find(class_='no-bullet').find_all('li')
@@ -92,10 +97,17 @@ def kanji_output():
     except:
         pass
 
-    # print('\n'.join(outp_telegram))
-    text = '\n'.join(outp_telegram)
-    bot.send_photo(chat_id=channel_id, photo=image, caption=text, disable_notification=False)
-
+    #Отправка
+    if len(''.join(outp_telegram))<=1023:
+        text = '\n'.join(outp_telegram)
+        bot.send_photo(chat_id=channel_id, photo=image, caption=text, disable_notification=False)
+    else:
+        to_send1 = outp_telegram[:len(outp_telegram)//2 + len(outp_telegram) % 2]
+        to_send2 = outp_telegram[len(outp_telegram)//2 + len(outp_telegram) % 2:]
+        text1 = '\n'.join(to_send1)
+        text2 = '\n'.join(to_send2)
+        bot.send_photo(chat_id=channel_id, photo=image, caption=text1, disable_notification=False)
+        bot.send_message(chat_id=channel_id, text=text2, disable_notification=False)
 
 
 if __name__ == '__main__':
